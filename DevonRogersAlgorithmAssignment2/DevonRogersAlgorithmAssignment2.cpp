@@ -3,12 +3,12 @@
 
 #include <iostream>
 #pragma comment(lib, "winmm.lib")//required to make the audio play
-#include <Windows.h>//plays the audio, doesn't work in online compiler (hunt down functions in the header files)
+#include <Windows.h>//plays the audio; doesn't work in online compiler (hunt down functions in the header files?)
 #include <vector>//allows arrays that change size
 #include <fstream>
 #include <string>
 #include <sstream>
-#include <chrono>//allows me to measure the time the sorting takes
+
 
 //audio is mostly figured out; it plays, but doesn't yet work in online compiler
 
