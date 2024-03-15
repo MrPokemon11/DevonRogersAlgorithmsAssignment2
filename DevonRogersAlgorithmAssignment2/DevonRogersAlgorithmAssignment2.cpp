@@ -40,12 +40,12 @@ void printArray(vector<int> data, int first, int last) {
         return;
     }
     cout << "[ ";
-    cout << data[first];
-    for (int i = first+1; i < last;i++) {
-        cout << ", ";
+    for (int i = first; i < last;i++) {
         cout << data[i];
+        cout << " ";
+
     }
-    cout << " ]";
+    cout << "]";
     return;
 }
 
@@ -81,16 +81,20 @@ vector<int> merge(vector<int> arr1, vector<int> arr2) {
     cout << " into ";
     printArray(returnVector);
     cout << endl;
+    //debug so i can see things happen
+    Sleep(200);
     //play a sound of some kind here, prefereably different from the split one (asyncronously?)
 
     return returnVector;
 }
 
 //the mergesort algorithm itself
-vector<int> mergeSort(vector<int> arr, int const first, int const last) {//either make it void or vector<int>, not sure which yet
-    if (first >= last) {
+vector<int> mergeSort(vector<int> arr) {//either make it void or vector<int>, not sure which yet
+    if (arr.size()<=1) {
         return arr;
     }
+    int first = 0;
+    int last = arr.size();
     int mid = (first + last) / 2;
 
     cout << "Split ";
@@ -98,12 +102,38 @@ vector<int> mergeSort(vector<int> arr, int const first, int const last) {//eithe
     cout << " into ";
     printArray(arr, first, mid);
     cout << " and ";
-    printArray(arr, mid + 1, last);
+    printArray(arr, mid, last);
     cout << endl;
     //play a sound of some kind here (asyncronous?)
 
-    vector<int> arr1, arr2;
+    //debug so i can see things happen
+    Sleep(200);
 
+    vector<int> arr1, arr2, arrBuff1, arrBuff2;
+    for (int i = 0; i < arr.size();i++) {
+        if (i < mid) {
+            arrBuff1.push_back(arr[i]);
+        }
+        else {
+            arrBuff2.push_back(arr[i]);
+        }
+    }
+    if (arrBuff1.size() > 1) {
+        arr1 = mergeSort(arrBuff1);
+    }
+    else {
+        arr1 = arrBuff1;
+    }
+    if (arrBuff2.size() > 1) {
+        arr2 = mergeSort(arrBuff2);
+    }
+    else {
+        arr2 = arrBuff2;
+    }
+
+
+    vector<int> returnVector = merge(arr1, arr2);
+    return returnVector;
 
 }
 
@@ -111,7 +141,6 @@ int main()
 {
     std::cout << "Please enter the array you would like to sort. Please separate the values with commas.\n";
     string arra;
-    getline(cin, arra);
     getline(cin, arra);
     
     vector<int> numbers;
@@ -129,13 +158,16 @@ int main()
     cout << endl;
 
     vector<int> sorted;
-    sorted = mergeSort(numbers, 0, numNums);
+    sorted = mergeSort(numbers);
 
     cout << "The sorted array: ";
     printArray(sorted);//print the sorted array
     
     //this is stored here so that i remember it later
     PlaySound(TEXT("SystemHand"), NULL, SND_ALIAS);
+
+    //the array, for copying to test
+    //11,1,30,2,51,6,29,7,67,15,118,4,89,23
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
