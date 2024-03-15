@@ -1,9 +1,18 @@
 // DevonRogersAlgorithmAssignment2.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
+#ifdef __has_include
+#   if __has_include("Windows.h")
+#       include <Windows.h>
+#   endif
+#endif // __has_include
+
+    //the array, for copying to test
+    //11,1,30,2,51,6,29,7,67,15,118,4,89,23
+
 #include <iostream>
 #pragma comment(lib, "winmm.lib")//required to make the audio play
-#include <Windows.h>//plays the audio; doesn't work in online compiler (hunt down functions in the header files?)
+//#include <Windows.h>//plays the audio; doesn't work in online compiler (hunt down functions in the header files?)
 #include <vector>//allows arrays that change size
 #include <fstream>
 #include <string>
@@ -82,9 +91,16 @@ vector<int> merge(vector<int> arr1, vector<int> arr2) {
     cout << " into ";
     printArray(returnVector);
     cout << endl;
-    //debug so i can see things happen
-    Sleep(200);
+
+
     //play a sound of some kind here, prefereably different from the split one (asyncronously?)
+        //the sound only plays if it's in Visual Studio on a windows machine, sorry!
+#ifdef __has_include
+#   if __has_include("Windows.h")
+    Beep(550, 300);
+    Sleep(200);
+#   endif
+#endif // __has_include
 
     return returnVector;
 }
@@ -107,8 +123,15 @@ vector<int> mergeSort(vector<int> arr) {//either make it void or vector<int>, no
     cout << endl;
     //play a sound of some kind here (asyncronous?)
 
-    //debug so i can see things happen
-    Sleep(200);
+    //the sound only plays if it's in Visual Studio on a windows machine, sorry!
+#ifdef __has_include
+#   if __has_include("Windows.h")
+    Beep(750, 300);
+        Sleep(200);
+#   endif
+#endif // __has_include
+
+    
 
     vector<int> arr1, arr2, arrBuff1, arrBuff2;
     for (int i = 0; i < arr.size();i++) {
@@ -164,8 +187,19 @@ int main()
     cout << "The sorted array: ";
     printArray(sorted);//print the sorted array
     
+    //the sound only plays if it's in Visual Studio on a windows machine, sorry!
+#ifdef __has_include
+#   if __has_include("Windows.h")
+    Beep(550, 150);
+    Beep(550, 150);
+    Beep(550, 150);
+    Beep(750, 500);
+    Sleep(200);
+#   endif
+#endif // __has_include
+
     //this is stored here so that i remember it later
-    PlaySound(TEXT("SystemHand"), NULL, SND_ALIAS);
+    //PlaySound(TEXT("SystemHand"), NULL, SND_ALIAS);
 
     //the array, for copying to test
     //11,1,30,2,51,6,29,7,67,15,118,4,89,23
